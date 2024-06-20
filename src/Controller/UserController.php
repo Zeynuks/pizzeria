@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Route('/', name: 'app_user_index', methods: ['GET'])]
+    #[Route('/list', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
@@ -56,6 +56,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user): Response
     {
+        $this->denyAccessUnlessGranted('USER_VIEW', $user);
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -64,6 +65,7 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted('USER_EDIT', $user);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -82,6 +84,7 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
+        $this->denyAccessUnlessGranted('USER_DELETE', $user);
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
             $userRepository->deleteUser($user);
         }
