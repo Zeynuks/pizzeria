@@ -4,6 +4,7 @@ namespace App\Entity;
 
 interface UserInterface
 {
+    public function getId(): ?int;
     public function getFirstName(): ?string;
     public function setFirstName(string $firstName): static;
     public function getLastName(): ?string;

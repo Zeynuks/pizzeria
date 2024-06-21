@@ -15,10 +15,7 @@ class UserVoter extends Voter
     public const VIEW = 'USER_VIEW';
     public const DELETE = 'USER_DELETE';
 
-    public function __construct(
-        private Security $security,
-    ) {
-    }
+    public function __construct(private Security $security) {}
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
@@ -30,7 +27,6 @@ class UserVoter extends Voter
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return true;
         }
