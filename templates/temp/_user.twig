@@ -1,17 +1,15 @@
-<div class="navigation-user">
-    {% if app.user %}
-        {% if app.user.avatar is not null %}
-            <a href="/user/{{ app.user.id }}" class="navigation-user__link">
-                <img class="navigation-user__logo" src="{{ asset('images/avatar/' ~ app.user.avatar) }}" style="border: 2px solid var(--accent-color); margin: 13px; display: flex; border-radius: 45px;" alt="User Avatar">
-            </a>
-        {% else %}
-            <a href="/user/{{ app.user.id }}" class="navigation-user__link">
-                <img class="navigation-user__logo" src="{{ asset('images/avatar/default.svg') }}" style="border: 2px solid var(--accent-color); margin: 13px; border-radius: 45px;" alt="Default Avatar">
-            </a>
-        {% endif %}
+{% if app.user %}
+    {% if app.user.avatar is not null %}
+        <a href="/user/{{ app.user.id }}" class="navigation-user__link">
+            <img class="navigation-user__logo" src="{{ asset('images/avatar/' ~ app.user.avatar) }}" style="border: 2px solid var(--accent-color); margin: 13px; display: flex; border-radius: 45px;" alt="User Avatar">
+        </a>
     {% else %}
-        <a href="/user/login" class="navigation-user__link">
-            <img class="navigation-user__logo" src="{{ asset('images/avatar/login.svg') }}" style="width: 52px; height: 52px; margin-left: 12px; margin-top: 10px;" alt="Login Icon">
+        <a href="/user/{{ app.user.id }}" class="navigation-user__link">
+            <img class="navigation-user__logo" src="{{ asset('images/avatar/default.svg') }}" style="border: 2px solid var(--accent-color); margin: 13px; border-radius: 45px;" alt="Default Avatar">
         </a>
     {% endif %}
-</div>
+{% else %}
+    <a href="/user/login" class="navigation-user__link">
+        <img class="navigation-user__logo" src="{{ asset('images/avatar/login.svg') }}" style="width: 52px; height: 52px; margin-left: 12px; margin-top: 10px;" alt="Login Icon">
+    </a>
+{% endif %}

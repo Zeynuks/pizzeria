@@ -28,7 +28,13 @@ class UserVoter extends Voter
     {
         $user = $token->getUser();
         if ($this->security->isGranted('ROLE_ADMIN')) {
-            return true;
+            switch ($attribute) {
+                case self::VIEW:
+                case self::DELETE:
+                    return true;
+                case self::EDIT:
+                    return $user->getId() === $subject->getId();
+            }
         }
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {

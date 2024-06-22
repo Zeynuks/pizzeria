@@ -47,11 +47,11 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_user_show', methods: ['GET', 'POST'])]
     public function show(User $user): Response
     {
         $this->denyAccessUnlessGranted('USER_VIEW', $user);
-        return $this->render('user/show.html.twig', [
+        return $this->render('user/show/profile.html.twig', [
             'user' => $user,
         ]);
     }

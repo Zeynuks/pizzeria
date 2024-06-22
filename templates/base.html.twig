@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap" rel="stylesheet">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+            <link href="{{ asset('css/base.css') }}" rel="stylesheet" />
         {% endblock %}
 
         {% block javascripts %}
@@ -20,17 +21,22 @@
                 <img class="navigation-logo__logo" src="{{ asset('images/icon/logo.svg') }}" alt="pizzeria_logo">
             </a>
             <nav class="navigation__menu">
-                <li class="navigation__item"><a href="/home" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/home.svg') }}" alt="">Home</a></li>
-                <li class="navigation__item"><a href="/menu" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/shop.svg') }}" alt="">Menu</a></li>
-                <li class="navigation__item"><a href="/history" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/clock.svg') }}" alt="">History</a></li>
-                <li class="navigation__item"><a href="/report" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/graph.svg') }}" alt="">Reports</a></li>
-                <li class="navigation__item"><a href="/alert" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/notification-bing.svg') }}" alt="">Alerts</a></li>
-                <li class="navigation__item"><a href="/settings" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/setting.svg') }}" alt="">Settings</a></li>
+                <li class="navigation__item"><a href="/home" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/disable/home.svg') }}" alt="">Home</a></li>
+                <li class="navigation__item"><a href="/menu" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/disable/menu.svg') }}" alt="">Menu</a></li>
+                <li class="navigation__item"><a href="/history" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/disable/clock.svg') }}" alt="">History</a></li>
+                <li class="navigation__item"><a href="/report" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/disable/reports.svg') }}" alt="">Reports</a></li>
+                    {% if app.user is not null and "ROLE_ADMIN" in app.user.roles|json_encode %}
+                        <li class="navigation__item"><a href="/user/list" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/disable/list.svg') }}" alt="">List</a></li>
+                    {% endif %}
+                <li class="navigation__item"><a href="/alert" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/disable/alerts.svg') }}" alt="">Alerts</a></li>
+                <li class="navigation__item"><a href="/settings" class="navigation__link"><img class="navigation__icon" src="{{ asset('images/icon/navigation/disable/setting.svg') }}" alt="">Settings</a></li>
             </nav>
-            {{ include('temp/_user.twig', sandboxed = true) }}
+            <div class="navigation-user">
+                {{ include('temp/_user.twig', sandboxed = true) }}
+            </div>
         </div>
         <section class="content">
-            {% block body %}{% endblock %}
+            {% block content %}{% endblock %}
         </section>
     </main>
 

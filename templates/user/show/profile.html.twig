@@ -1,0 +1,31 @@
+{% extends 'user/show.html.twig' %}
+
+{% block about %}
+    <div class="profile-block-about">
+        <h1 class="profile-block-about__title">{{ user.firstName }} {{ user.lastName }}</h1>
+        {% if app.user is not null and "ROLE_ADMIN" in app.user.roles|json_encode %}
+            <h2 class="profile-block-about__description">Системный администратор</h2>
+        {% else %}
+            <h2 class="profile-block-about__description">Пользователь</h2>
+        {% endif %}
+    </div>
+    <div class="profile-block-navigation">
+        <a class="profile-block-navigation__link" style="background-color: var(--background-subdued-color)"><img class="profile-block-navigation__logo" src="{{ asset('images/icon/user/profile.svg') }}" alt="profile">Personal Information</a>
+        <a class="profile-block-navigation__link"><img class="profile-block-navigation__logo" src="{{ asset('images/icon/user/security.svg') }}" alt="security">Login & Password</a>
+        <a class="profile-block-navigation__link"><img class="profile-block-navigation__logo" src="{{ asset('images/icon/user/logout.svg') }}" alt="logout">Log Out</a>
+    </div>
+{% endblock %}
+
+{% block form %}
+    <form class="profile-form">
+        <h1 class="profile-form__title">Personal Information</h1>
+
+
+        <a href="{{ path('app_user_index') }}">back to list</a>
+
+        <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+
+        {{ include('user/_delete_form.html.twig') }}
+    </form>
+{% endblock %}
+

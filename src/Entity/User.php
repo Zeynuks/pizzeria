@@ -55,11 +55,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \App\En
         return $this->id;
     }
 
-    /**
-     * @see UserInterface
-     *
-     * @return list<string>
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -69,9 +64,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \App\En
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -81,48 +73,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \App\En
 
     public function getFirstName(): ?string
     {
-        return $this->firstName;
+        return strtolower($this->firstName);
+
     }
 
     public function setFirstName(string $firstName): static
     {
-        $this->firstName = $firstName;
+        $this->firstName = lcfirst($firstName);
 
         return $this;
     }
 
     public function getMiddleName(): ?string
     {
-        return $this->middleName;
+        return strtolower($this->middleName);
     }
 
     public function setMiddleName(?string $middleName): static
     {
-        $this->middleName = $middleName;
+        $this->middleName = lcfirst($middleName);
 
         return $this;
     }
 
     public function getLastName(): ?string
     {
-        return $this->lastName;
+        return strtolower($this->lastName);
     }
 
     public function setLastName(string $lastName): static
     {
-        $this->lastName = $lastName;
+        $this->lastName = lcfirst($lastName);
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return strtolower($this->email);
     }
 
     public function setEmail(string $email): static
     {
-        $this->email = $email;
+        $this->email = lcfirst($email);
 
         return $this;
     }
@@ -141,12 +134,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \App\En
 
     public function getAddress(): ?string
     {
-        return $this->address;
+        return strtolower($this->address);
     }
 
     public function setAddress(?string $address): static
     {
-        $this->address = $address;
+        $this->address = lcfirst($address);
 
         return $this;
     }

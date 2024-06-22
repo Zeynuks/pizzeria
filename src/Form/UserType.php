@@ -6,7 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -46,7 +46,7 @@ class UserType extends AbstractType
                     ])
                 ]
             ])
-            ->add('phone', NumberType::class, [
+            ->add('phone', TextType::class, [
                 'required'   => false
             ])
             ->add('birthDate', BirthdayType::class, [
@@ -56,6 +56,7 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('avatar', FileType::class)
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'attr' => ['autocomplete' => 'new-password'],

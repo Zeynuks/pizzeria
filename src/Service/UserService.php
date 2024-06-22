@@ -8,8 +8,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserService
 {
-    private $userRepository;
-    private $passwordHasher;
+    private UserRepository $userRepository;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserRepository $userRepository, UserPasswordHasherInterface $passwordHasher)
     {
